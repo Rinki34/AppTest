@@ -1,1 +1,1 @@
-pip install flask
+Flask==2.0.2
