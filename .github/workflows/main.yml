@@ -6,18 +6,12 @@ on:
       - master
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-
-      - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
-          
+        
       - name: ACR build
         id: build-push-acr
         uses: azure/acr-build@v1
@@ -28,8 +22,14 @@ jobs:
           registry: ${{ secrets.AZURE_REGISTRY }}
           repository: ${{ secrets.AZURE_REPO }}
           image:  python_api
-          branch: master
+          branch: main
           tag: ${{ github.sha }}
+
+      - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true  
 
       - name: 'Run az commands'
         run: |
