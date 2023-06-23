@@ -7,14 +7,11 @@ resource "azurerm_resource_group" "rg" {
     location = var.az_region
     tags = var.tags
 } 
-resource "time_sleep" "wait_30_seconds" {
-  depends_on = [azurerm_resource_group.rg]
-  create_duration = "90s"
-} 
+ 
 resource "azurerm_kubernetes_cluster" "aks" {
     name = var.aks_name
     location = var.az_region
-    resource_group_name = var.az_resource_name
+    resource_group_name = azurerm_resource_group.rg.name
     dns_prefix = "${var.aks_name}-dns"
     linux_profile {
         admin_username = var.aks_admin_name
