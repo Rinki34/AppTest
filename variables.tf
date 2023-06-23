@@ -1,4 +1,4 @@
-variable "az_resource_name" {
+2variable "az_resource_name" {
     type = string
     description = "Azure resourcegroup for deployment"
 }
@@ -14,7 +14,7 @@ variable "aks_name" {
 
 variable "aks_agent_count" {
     description = "AKS agent VM count"
-    default = 3
+    default = 2
 }
 variable "aks_vm_size" {
     type = string
