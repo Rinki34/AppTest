@@ -1,0 +1,15 @@
+az_resource_group = "false"
+az_resource_name = "future-systems-eastus"
+az_region = "westus"
+aks_name = "aks-westus-test"
+aks_agent_count = "1"
+aks_vm_size = "Standard_DS2_v2"
+
+az_subscription_id = ""
+az_tenant_id = ""
+az_service_principal_client_id = ""
+az_service_principal_client_secret = ""
+
+aws_access_key = ""
+aws_secret_key = ""
+aws_region = "us-west-1"
