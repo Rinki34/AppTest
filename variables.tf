@@ -1,7 +1,3 @@
-variable "az_resource_group" {
-    type = string
-    description = "Azure resourcegroup condition for deployment"
-}
 variable "az_resource_name" {
     type = string
     description = "Azure resourcegroup for deployment"
@@ -44,17 +40,6 @@ variable "az_service_principal_client_id" {
 variable "az_service_principal_client_secret" {
     type = string
     description = "Service Principal Client Secret"
-}
-variable "aws_region" {
-    description = "AWS Region"
-}
-variable "aws_access_key" {
-    type = string
-    description = "AWS Access Key"
-}
-variable "aws_secret_key" {
-    type = string
-    description = "AWS Secret Key"
 }
 variable "tags" {
     type = map
