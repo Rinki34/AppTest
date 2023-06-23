@@ -4,7 +4,6 @@ resource "tls_private_key" "key" {
 }
 resource "azurerm_resource_group" "rg" {
     name = var.az_resource_name
-    
     location = var.az_region
     tags = var.tags
 } 
@@ -15,7 +14,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     dns_prefix = "${var.aks_name}-dns"
     linux_profile {
         admin_username = var.aks_admin_name
-
         ssh_key {
             key_data = trimspace(tls_private_key.key.public_key_openssh)
         }
