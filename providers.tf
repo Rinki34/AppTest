@@ -6,9 +6,3 @@ provider "azurerm" {
     client_secret = var.az_service_principal_client_secret
     features {}
 }
-
-provider "aws" {
-  region = var.aws_region
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-}
