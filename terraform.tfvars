@@ -3,8 +3,5 @@ az_region = "North Europe"
 aks_name = "app_test"
 aks_agent_count = "2"
 aks_vm_size = "Standard_DS2_v2"
-
-az_subscription_id = ""
-az_tenant_id = ""
 az_service_principal_client_id = "3ee33c3a-ce02-4a87-a6bb-41acabcb15c3"
 az_service_principal_client_secret = "0yX8Q~q9Ib8S146vPEdWMUzhRiisXmXJR2MuQaDs"
