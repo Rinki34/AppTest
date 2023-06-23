@@ -1,6 +1,6 @@
-az_resource_name = "test_rg"
+az_resource_name = "test-rg"
 az_region = "North Europe"
-aks_name = "app-test"
+aks_name = "api-test"
 aks_agent_count = "2"
 aks_vm_size = "Standard_DS2_v2"
 az_service_principal_client_id = "3ee33c3a-ce02-4a87-a6bb-41acabcb15c3"
