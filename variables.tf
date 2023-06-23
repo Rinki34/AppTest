@@ -1,4 +1,4 @@
-2variable "az_resource_name" {
+variable "az_resource_name" {
     type = string
     description = "Azure resourcegroup for deployment"
 }
