@@ -27,12 +27,6 @@ variable "aks_admin_name" {
     description = "Admin username"
     default = "azureuser"
 }
-variable "az_subscription_id" {
-    type = string
-}
-variable "az_tenant_id" {
-    type = string
-}
 variable "az_service_principal_client_id" {
     type = string
     description = "Service Principal Client ID"
