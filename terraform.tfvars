@@ -9,7 +9,3 @@ az_subscription_id = ""
 az_tenant_id = ""
 az_service_principal_client_id = ""
 az_service_principal_client_secret = ""
-
-aws_access_key = ""
-aws_secret_key = ""
-aws_region = "us-west-1"
