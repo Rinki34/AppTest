@@ -5,7 +5,7 @@ variable "az_resource_name" {
 variable "az_region" {
     type = string
     description = "Azure region for deployment"
-    default = "westus"
+    default = "North Europe"
 }
 variable "aks_name" {
     type = string
