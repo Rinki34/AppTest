@@ -4,21 +4,15 @@ resource "tls_private_key" "key" {
 }
 resource "azurerm_resource_group" "rg" {
     name = var.az_resource_name
-    count = "${var.az_resource_group == "true" ? 1 : 0}"
     
     location = var.az_region
     tags = var.tags
-}
-resource "time_sleep" "wait_30_seconds" {
-  depends_on = [azurerm_resource_group.rg]
-  create_duration = "90s"
-}   
+} 
 resource "azurerm_kubernetes_cluster" "aks" {
     name = var.aks_name
     location = var.az_region
     resource_group_name = var.az_resource_name
     dns_prefix = "${var.aks_name}-dns"
-    depends_on = [time_sleep.wait_30_seconds]
     linux_profile {
         admin_username = var.aks_admin_name
 
@@ -30,8 +24,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     default_node_pool {
         name = "default"
         node_count = var.aks_agent_count
-        vm_size = var.aks_vm_size
-        os_disk_size_gb = 50
+        vm_size = Standard_D2_v2
     }
 
     service_principal {
@@ -48,46 +41,4 @@ provider "kubernetes" {
     alias                  = "aks"
     version                = "1.11.1"
     load_config_file       = "false"
-}
-
-resource "kubernetes_namespace" "istio" {
-    metadata {
-        name = "istio-system"
-    } 
-    provider = kubernetes.aks
-    depends_on = [ azurerm_kubernetes_cluster.aks ]
-}
-
-resource "kubernetes_namespace" "sockshop" {
-    metadata {
-        name = "sock-shop"
-        labels = {
-          istio-injection = "enabled"
-        }
-    } 
-    provider = kubernetes.aks
-    depends_on = [ azurerm_kubernetes_cluster.aks ]
-}
-
-resource "null_resource" "save-kube-config" {
-    triggers = {
-        config = azurerm_kubernetes_cluster.aks.kube_config_raw
-    }
-    provisioner "local-exec" {
-        command = "mkdir -p ~/.kube && echo '${azurerm_kubernetes_cluster.aks.kube_config_raw}' > $HOME/.kube/config && export KUBECONFIG=$HOME/.kube/config"
-    }
-    provisioner "local-exec" {
-        command = "curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.4.3 TARGET_ARCH=x86_64 sh -"
-    }
-    provisioner "local-exec" {
-        command = "helm template istio-1.4.3/install/kubernetes/helm/istio-init --namespace istio-system | kubectl apply -f- --kubeconfig=$HOME/.kube/config && sleep 30s"
-    }
-    provisioner "local-exec" {
-        command = "helm template istio-1.4.3/install/kubernetes/helm/istio --values istio-1.4.3/install/kubernetes/helm/istio/values-istio-demo.yaml --namespace istio-system | kubectl apply -f- --kubeconfig=$HOME/.kube/config"
-    }
-    provisioner "local-exec" {
-        command = "kubectl get pods -n istio-system --kubeconfig=$HOME/.kube/config && kubectl apply -f app/complete-demo-v1.yaml -n sock-shop --kubeconfig=$HOME/.kube/config"
-    }        
-
-    depends_on = [azurerm_kubernetes_cluster.aks, kubernetes_namespace.sockshop, kubernetes_namespace.istio]
 }
