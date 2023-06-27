@@ -31,7 +31,7 @@ jobs:
           repository: ${{ secrets.AZURE_REPO }}
           image:  python_api
           branch: main
-          tag: ${{ github.sha }}
+          tag: v1
 
       - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
         uses: Azure/login@v1
@@ -83,7 +83,7 @@ jobs:
           namespace: 'default'
           manifests: |
              python-api.yaml
-          images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REGISTRY }}/python_api:${{ github.sha }}'
+          images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REGISTRY }}/python_api:v1'
           pull-images: false 
       - name: 'Run az commands'
         run: |
