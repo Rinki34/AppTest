@@ -66,6 +66,26 @@ jobs:
           tf_actions_version: 0.14.8
           tf_actions_subcommand: 'apply'
           tf_actions_working_dir: "./terraform"
+          
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.AZURE_RESOURCE_GROUP }}' 
+          cluster-name: '${{ secrets.AZURE_CLUSTER_NAME }}'
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: 'default'
+          manifests: |
+             azure-vote-all-in-one-redis.yaml
+          images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REGISTRY }}/python_api:${{ github.sha }}'
+          pull-images: false 
+		  
       - name: 'Run az commands'
         run: |
           az account show
