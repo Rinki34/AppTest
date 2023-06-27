@@ -85,7 +85,6 @@ jobs:
              azure-vote-all-in-one-redis.yaml
           images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REGISTRY }}/python_api:${{ github.sha }}'
           pull-images: false 
-		  
       - name: 'Run az commands'
         run: |
           az account show
