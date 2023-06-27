@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: python-api
-          image: onlinetest.azurecr.io/azuretest/python_api    
+          image: onlinetest.azurecr.io/azuretest/python_api:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
