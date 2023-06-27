@@ -25,6 +25,8 @@ spec:
             requests:
               cpu: 50m
               memory: 300Mi
+      imagePullSecrets:
+        - name: acrcred
 ---
 apiVersion: v1
 kind: Service
