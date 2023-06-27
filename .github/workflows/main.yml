@@ -82,7 +82,7 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             azure-vote-all-in-one-redis.yaml
+             python-api.yaml
           images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REGISTRY }}/python_api:${{ github.sha }}'
           pull-images: false 
       - name: 'Run az commands'
