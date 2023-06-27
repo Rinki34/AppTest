@@ -1,4 +1,4 @@
-name: Authenticate Azure
+name: App Deploy
 on:
   workflow_dispatch:
   pull_request:
