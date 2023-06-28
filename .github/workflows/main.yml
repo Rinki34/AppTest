@@ -84,8 +84,4 @@ jobs:
           manifests: |
              python-api.yaml
           images: '${{ secrets.AZURE_REGISTRY }}.azurecr.io/${{ secrets.AZURE_REPO }}/python_api:v1'
-          pull-images: false 
-      - name: 'Run az commands'
-        run: |
-          az account show
-          az group list
+          pull-images: false
